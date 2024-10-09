@@ -20,7 +20,7 @@ namespace TiendaAPI
 
             // Add services to the container.
 
-            // configuracion personalizada
+            ////////// Configuracion personalizada Singleton
             builder.Services.Configure<TiendaSettings>
                 (builder.Configuration.GetSection(nameof(TiendaSettings)));
 
@@ -30,8 +30,8 @@ namespace TiendaAPI
             builder.Services.AddSingleton<ProductService>();
 
             builder.Services.AddControllers();
-            
-            // fin de config
+
+            ////////// Fin de Configuracion personalizada Singleton
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
