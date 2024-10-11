@@ -45,6 +45,5 @@ namespace TiendaAPI.Services
             await _products.DeleteOneAsync(filter);
         }
 
-
     }
 }

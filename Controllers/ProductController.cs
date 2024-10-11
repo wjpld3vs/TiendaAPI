@@ -8,7 +8,7 @@ namespace TiendaAPI.Controllers
     [ApiController]
     public class ProductController : Controller
     {
-        private ProductService _productService;
+        private readonly ProductService _productService;
 
         public ProductController(ProductService productService)
         {

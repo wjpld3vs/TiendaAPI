@@ -28,6 +28,8 @@ namespace TiendaAPI
                 (a => a.GetRequiredService<IOptions<TiendaSettings>>().Value);
 
             builder.Services.AddSingleton<ProductService>();
+            builder.Services.AddSingleton<CustomerService>();
+            builder.Services.AddSingleton<SupplierService>();
 
             builder.Services.AddControllers();
 
