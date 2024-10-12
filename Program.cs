@@ -9,6 +9,10 @@ using Amazon.Runtime.Internal.Settings;
 using System.Configuration;
 using Microsoft.Extensions.Options;
 using TiendaAPI.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using System.Security.Cryptography;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace TiendaAPI
 {
@@ -21,6 +25,27 @@ namespace TiendaAPI
             // Add services to the container.
 
             ////////// Configuracion personalizada Singleton
+
+            var key = builder.Configuration
+                    .GetSection(nameof(TiendaSettings))
+                    .GetSection("Token").Value;
+
+            builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                    {
+                        options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+                        {
+                            ValidateIssuer = true,
+                            ValidateAudience = true,
+                            ValidateLifetime = true,
+                            ValidateIssuerSigningKey = true,
+                            ValidIssuer = "https://localhost",
+                            ValidAudience = "https://localhost",
+                            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key))
+                        };
+                    }
+                );
+
             builder.Services.Configure<TiendaSettings>
                 (builder.Configuration.GetSection(nameof(TiendaSettings)));
 
@@ -30,6 +55,8 @@ namespace TiendaAPI
             builder.Services.AddSingleton<ProductService>();
             builder.Services.AddSingleton<CustomerService>();
             builder.Services.AddSingleton<SupplierService>();
+            builder.Services.AddSingleton<ProductCategoryService>();
+            builder.Services.AddSingleton<UserService>();
 
             builder.Services.AddControllers();
 
@@ -50,6 +77,7 @@ namespace TiendaAPI
 
             app.UseHttpsRedirection();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
 

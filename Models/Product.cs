@@ -20,5 +20,11 @@ namespace TiendaAPI.Models
         [BsonElement("Stock")]
         [BsonRepresentation(BsonType.Int32)]
         public int Stock { get; set; }
+
+        [BsonElement("Supplier")]
+        public Supplier Supplier { get; set; }
+
+        [BsonElement("Category")]
+        public ProductCategory Category { get; set; }
     }
 }
