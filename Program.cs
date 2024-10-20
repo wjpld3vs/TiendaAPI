@@ -57,6 +57,7 @@ namespace TiendaAPI
             builder.Services.AddSingleton<SupplierService>();
             builder.Services.AddSingleton<ProductCategoryService>();
             builder.Services.AddSingleton<UserService>();
+            builder.Services.AddSingleton<SaleService>();
 
             builder.Services.AddControllers();
 
